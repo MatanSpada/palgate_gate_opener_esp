@@ -1,0 +1,5 @@
+.pio/
+.vscode/
+*.code-workspace
+
+config.h

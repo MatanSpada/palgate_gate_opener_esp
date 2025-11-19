@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"name": "palgate_esp_beacon",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"string.h": "c",
+			"unordered_set": "cpp"
+		}
+	}
+}
