@@ -53,8 +53,10 @@ Follow the guide inside the directory: EXTRACT_SESSION_TOKEN/
 - Session token is the permanent authentication key linked to your PalGate account. It is used to generate the temporary request token that actually opens the gate.
 4. **Configure your credentials**   
 Open the file CONFIG_TEMPLATE.h, fill in the values you obtained and then rename the file to: config.h This file is excluded from Git and is already listed in .gitignore.
+
 5. **Compile and flash the project**   
 After the credentials are configured, you can build and upload the firmware normally using PlatformIO.
+
 6. **First boot Wi-Fi provisioning**   
 When the ESP32 scanner boots for the first time, it automatically starts an Access Point and opens a Wi-Fi configuration page. The default address is: http://192.168.4.1 (This can be modified in the code).
 
