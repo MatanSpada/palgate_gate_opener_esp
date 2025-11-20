@@ -49,10 +49,10 @@ Both projects include:
  
 3. **Extract your personal PalGate session details**   
 You must generate your session token and token type using the QR-code linking process.   
-Follow the guide inside the directory: EXTRACT_SESSION_TOKEN/   
+Follow the guide inside the directory: [extract_session_token](docs/extract_session_token/extract_session_token.md)
 - Session token is the permanent authentication key linked to your PalGate account. It is used to generate the temporary request token that actually opens the gate.
 4. **Configure your credentials**   
-Open the file CONFIG_TEMPLATE.h, fill in the values you obtained and then rename the file to: config.h This file is excluded from Git and is already listed in .gitignore.
+Open the file config_template.h, fill in the values you obtained and then rename the file to: config.h This file is excluded from Git and is already listed in .gitignore.
 
 5. **Compile and flash the project**   
 After the credentials are configured, you can build and upload the firmware normally using PlatformIO.
