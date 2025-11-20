@@ -33,33 +33,45 @@ This repository contains two independent PlatformIO projects:
   Runs on low power and advertises when the user approaches the gate.
 
 Both projects include:
-- Clean Arduino-based C++ code  
+- Clean Arduino-based(ESP32) C++ code  
 - Non-blocking BLE scanning  
 - Light-sleep integration  
 - Configurable UUID, advertising rate, and scan window  
-- Optional Wi-Fi reconnection logic
 
 ---
 
 ## Quick start
 
-1. Clone the repository:
+1. **Clone the repository**:
    ```bash
    git clone git@github.com:MatanSpada/palgate_gate_opener_esp.git
-2. Open either project (scanner or beacon) in PlatformIO.
-3. Update your Wi-Fi credentials:
-- Stored in Preferences (non-volatile)
-- Set via CLI or initial configuration
-4. Add your session token:
-   static const char* SESSION_TOKEN_HEX = "<your-token-here>";
-5. Upload to ESP32 and power the device.
+2. **Open either project (scanner or beacon) in PlatformIO.**
+3. **Extract your personal PalGate session details**   
+You must generate your session token and token type using the QR-code linking process.   
+Follow the guide inside the directory: EXTRACT_SESSION_TOKEN/   
+- Session token is the permanent authentication key linked to your PalGate account. It is used to generate the temporary request token that actually opens the gate.
+4. **Configure your credentials**   
+Open the file CONFIG_TEMPLATE.h, fill in the values you obtained and then rename the file to: config.h This file is excluded from Git and is already listed in .gitignore.
+5. **Compile and flash the project**   
+After the credentials are configured, you can build and upload the firmware normally using PlatformIO.
+6. **First boot Wi-Fi provisioning**   
+When the ESP32 scanner boots for the first time, it automatically starts an Access Point and opens a Wi-Fi configuration page. The default address is: http://192.168.4.1 (This can be modified in the code).
+
+After entering your Wi-Fi SSID and password, the scanner will store them in NVS (persist storage).
+
+In order to connect the scanner to a different Wi-Fi network and erase the stored credentials from NVS: Press the BOOT button (GPIO0) once. Immediately after that, press the EN (RESET) button to reboot the device.
+
+After the reboot, the ESP32 will start as if it’s booting for the first time: it will create an Access Point and open the Wi-Fi provisioning page, waiting for new SSID and password input.
+7. **Testing the system**   
+Press the button on the beacon → it will transmit a BLE advertisement. The scanner should detect it and turn on its LED.
+You can also open a serial terminal (UART) to the scanner to view logs and debugging messages.
 
 ## Purpose
 Parking lots often have zero cellular reception, preventing the PalGate app from working.
-This project solves it by using two ESP32 units (beacon + scanner) to open the gate reliably even when:
+This project tries to solve it by using two ESP32 units (beacon + scanner) to open the gate reliably even when:
 - There is no cellular coverage
 - The phone cannot send API requests
-- You want a local, offline-capable automation
+- You can place the scanner-esp at a place with reception/wifi.
 The scanner detects your beacon and triggers an authenticated request to the PalGate server.
 
 ## Environment
