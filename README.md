@@ -46,6 +46,7 @@ Both projects include:
    ```bash
    git clone git@github.com:MatanSpada/palgate_gate_opener_esp.git
 2. **Open either project (scanner or beacon) in PlatformIO.**
+ 
 3. **Extract your personal PalGate session details**   
 You must generate your session token and token type using the QR-code linking process.   
 Follow the guide inside the directory: EXTRACT_SESSION_TOKEN/   
