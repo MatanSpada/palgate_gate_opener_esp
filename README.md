@@ -17,7 +17,7 @@
 - [Quick start](#quick-start)
 - [Purpose](#purpose)
 - [Environment](#environment)
-- [Battery runtime estimates](#battery-runtime-estimates)
+- [Battery](#battery)
 - [How to extend battery life](#how-to-extend-battery-life)
 - [Copyright and license](#copyright-and-license)
 
@@ -86,7 +86,7 @@ The scanner detects your beacon and triggers an authenticated request to the Pal
 /scanner     BLE scanner
 /beacon      BLE beacon transmitter
 
-## Battery runtime
+## Battery
 Actual runtime depends on:
 - Scan window
 - Advertising interval
