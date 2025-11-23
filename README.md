@@ -14,6 +14,7 @@
 
 ## Table of contents
 - [What's included](#whats-included)
+- [Overview](#Overview)
 - [Quick start](#quick-start)
 - [Purpose](#purpose)
 - [Environment](#environment)
@@ -37,6 +38,19 @@ Both projects include:
 - Non-blocking BLE scanning  
 - Light-sleep integration  
 - Configurable UUID, advertising rate, and scan window  
+
+---
+
+## Overview
+
+Palgate allows adding a new device to the app (up to 2 devices in total).  
+During this pairing flow, a QR code is generated and the app exposes several values:  
+- the user's fixed session token  
+- the device type  
+- the phone ID  
+
+Using the `generate_token.py` script, we can extract these values.  
+They are then used when sending the HTTP request to Palgate’s server to open the gate.
 
 ---
 
