@@ -1,136 +1,141 @@
-✅ Guide: Extracting a Permanent PalGate Session Token
+<p align="center">
+  <img src="../logo.png" alt="PalGate Logo" width="160">
+</p>
 
-This guide explains exactly how to extract the permanent PalGate session token using the pylgate tool, in a safe and isolated environment.
+<h3 align="center">Extracting Your Permanent Session Token</h3>
 
-⭐ Overview
+<p align="center">
+  A clean and safe way to generate your PalGate session token<br>
+  using the official linking mechanism.
+</p>
 
-PalGate allows linking additional devices using a “Device Linking” flow (QR code scanning).
-The pylgate tool pretends to be an additional device, and when the QR code is scanned from your PalGate mobile app, the server generates a permanent session token for that virtual device.
+---
 
-This token is what we need for this project.
+## Table of contents
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Step 1 - Install pyenv](#step-1---install-pyenv)
+- [Step 2 - Install Python 3.11.6](#step-2---install-python-3116)
+- [Step 3 - Create a virtual environment](#step-3---create-a-virtual-environment)
+- [Step 4 - Install pylgate](#step-4---install-pylgate)
+- [Step 5 - Install dependencies](#step-5---install-dependencies)
+- [Step 6 - Generate the QR code](#step-6---generate-the-qr-code) 
+- [Step 7 - Scan using the PalGate app](#step-7---scan-using-the-palgate-app)
 
-This guide shows how to:
+---
 
-✔ Install a safe Python environment using pyenv if your Python version is lower
-✔ Install pylgate
-✔ Install dependencies (qrcode, pillow, requests)
-✔ Run the linking script
-✔ Extract the permanent session token
+## Overview
+PalGate’s linking flow allows adding “virtual devices” by scanning a QR code.  
+The `pylgate` tool acts as a new virtual device.  
+When you scan the QR code using your PalGate app,  
+PalGate generates a **permanent session token** for that virtual device.
 
-The pylgate package requires Python ≥ 3.9.
+This token is what we use next.
 
-If your system already has Python 3.9 or higher installed, you can skip the entire pyenv installation process and go directly to Step 4 - Install pylgate inside a virtual environment.
+This guide walks you through:
+- Installing a clean Python environment (needed only if your Python version is lower then 3.9)
+- Installing pylgate
+- Running the linking script
+- Extracting the session token
 
-📦 Requirements
+---
 
-Before you begin, install the required build dependencies:
+## Requirements
+Before installing pyenv or Python:
 
+```bash
 sudo apt update
 sudo apt install -y build-essential curl git \
     libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
     libsqlite3-dev libffi-dev liblzma-dev
+```
+These are required for building Python via pyenv.
+If your system already has Python 3.9 or higher installed, you can skip directly to [Step 4 - Install pylgate](#step-4---install-pylgate) inside a virtual environment.
+
+<br><br>
 
 
-These are mandatory for building Python via pyenv.
+# Steps
 
-
-🧰 Step 1 — Install pyenv (Safe Python Version Manager)
+## Step 1 - Install pyenv
+```bash
 curl https://pyenv.run | bash
-
-
-Add pyenv initialization to your ~/.zshrc (for zsh users):
-
-echo '' >> ~/.zshrc
-echo '# >>> pyenv initialization >>>' >> ~/.zshrc
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
-echo '# <<< pyenv initialization <<<' >> ~/.zshrc
-
-source ~/.zshrc
-
-
+```
+Add pyenv initialization to your shell (here is a ZSH example):
+```bash
+  echo '' >> ~/.zshrc
+  echo '# >>> pyenv initialization >>>' >> ~/.zshrc
+  echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+  echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+  echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc
+  echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+  echo '# <<< pyenv initialization <<<' >> ~/.zshrc
+  source ~/.zshrc
+```
 Verify installation:
-
+```bash
 pyenv --version
+```
 
-
-
-🐍 Step 2 — Install a clean Python version for pylgate
-
-Install Python 3.11.6:
-
+## Step 2 - Install Python 3.11.6
+```bash
 pyenv install 3.11.6
+```
 
-
-(This may show a harmless warning about _tkinter. Ignore it.)
-
-
-
-🧪 Step 3 — Create an isolated virtual environment
+## Step 3 - Create a virtual environment
+```bash
 pyenv virtualenv 3.11.6 pylgate-env
 pyenv activate pylgate-env
-
-
-Check the Python version:
-
 python --version
+```
 
-
-You must see:
-
+Expected:
+```bash
 Python 3.11.6
+```
 
+## Step 4 - Install pylgate
+Because pip may point to the system Python, use full path:
 
+```bash
+~/.pyenv/versions/pylgate-env/bin/pip install \
+    git+https://github.com/DonutByte/pylgate.git@main
+```
 
+## Step 5 - Install dependencies
+Install QR + PIL:
 
-📦 Step 4 — Install pylgate 
-
-If you are using zsh, it may still use /usr/bin/pip.
-To avoid this, always call pip by full path:
-
-~/.pyenv/versions/pylgate-env/bin/pip install git+https://github.com/DonutByte/pylgate.git@main
-
-
-If installation succeeds, proceed.
-
-
-
-📚 Step 5 — Install dependencies (required for the QR script)
-Install QR code generation + image backend:
+```bash
 ~/.pyenv/versions/pylgate-env/bin/pip install "qrcode[pil]"
+```
 
-Install requests:
+Install Requests:
+```bash
 ~/.pyenv/versions/pylgate-env/bin/pip install requests
+```
 
+## Step 6 - Generate the QR code
+run:
 
-
-🚀 Step 6 — Run the script to generate the QR code
+```bash
 python generate_token.py
+```
 
+This will:
 
-The script will:
+- Generate a QR code
+- Wait for you to scan
+- Complete the linking flow
+- Output the permanent session token
 
-Generate a QR code
-
-Wait for a scan
-
-Perform the PalGate linking flow
-
-Output the “permanent session token”
-
-
-
-📱 Step 7 — Scan QR code from PalGate mobile app
+## Step 7 - Scan using the PalGate app
 
 On your PalGate mobile app:
 
 Menu → Device Linking → Link a Device → Scan QR
+After scanning, the terminal will show something like:
 
-
-After scanning, your terminal will display something like:
-
+```bash
 checking status...
 updating user info...
 checking derived token...
@@ -138,5 +143,8 @@ Logged-in successfully :)
 Phone number (user id): 9725XXXXXXXX
 Session token: eb70ce644902149853426ddf07da092d
 Token type: 1 (TokenType.PRIMARY)
+```
 
-
+Your session token is now ready to use in the main project.
+Copy the `Session token` value into your `config.h` as `SESSION_TOKEN_HEX`.
+---
