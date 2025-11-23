@@ -147,4 +147,3 @@ Token type: 1 (TokenType.PRIMARY)
 
 Your session token is now ready to use in the main project.
 Copy the `Session token` value into your `config.h` as `SESSION_TOKEN_HEX`.
----
