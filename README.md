@@ -64,7 +64,8 @@ After entering your Wi-Fi SSID and password, the scanner will store them in NVS 
 
 In order to connect the scanner to a different Wi-Fi network and erase the stored credentials from NVS: Press the BOOT button (GPIO0) once. Immediately after that, press the EN (RESET) button to reboot the device.
 
-After the reboot, the ESP32 will start as if it’s booting for the first time: it will create an Access Point and open the Wi-Fi provisioning page, waiting for new SSID and password input.
+After the reboot, the ESP32 will start as if it’s booting for the first time: it will create an Access Point and open the Wi-Fi provisioning page, waiting for new SSID and password input.   
+
 7. **Testing the system**   
 Press the button on the beacon → it will transmit a BLE advertisement. The scanner should detect it and turn on its LED.
 You can also open a serial terminal (UART) to the scanner to view logs and debugging messages.
