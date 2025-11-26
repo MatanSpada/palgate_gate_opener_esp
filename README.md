@@ -33,6 +33,12 @@ This repository contains two independent PlatformIO projects:
 - **/beacon** – ESP32 BLE iBeacon transmitter  
   Runs on low power and advertises when the user approaches the gate.
 
+The ESP-scanner will be placed near the gate in an area with stable WiFi reception.
+The ESP-Beacon device will be installed inside the car.
+When approaching the gate, press the BOOT button on the ESP-Beacon, and it will start broadcasting a beacon signal for 10 seconds.
+The duration and other timing parameters can be adjusted in the code.
+---
+
 Both projects include:
 - Clean Arduino-based(ESP32) C++ code  
 - Non-blocking BLE scanning  
